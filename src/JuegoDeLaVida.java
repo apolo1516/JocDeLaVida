@@ -19,6 +19,7 @@ public class JuegoDeLaVida {
         int opcio = 0;
         int imArray = 0;
         int posVida=0;
+        int PosAuto=0;
         boolean seguir = false;
 
 
@@ -46,6 +47,7 @@ public class JuegoDeLaVida {
 
                     break;
                 case 2:
+                    PosAuto = posicioVidaAuto(array,celula);
                     break;
                 case 3:
                     imprimirArray(array);
@@ -113,13 +115,21 @@ public class JuegoDeLaVida {
         return posVida;
         }
     public int posicioVidaAuto(int [][] array, int celula){
-        int auto=0;
+        int PosAuto=0;
+        int grupos=0;
+        System.out.println("Quants grups vols posar?");
+        grupos = e.nextInt();
 
+        for (int a=0; a < grupos;a++){
+            fila = (int)(Math.random()*array.length);
+            columna = (int)(Math.random()*array[fila].length);
+            celula = 1;
+            array[fila][columna] = celula;
+        }
 
-
-        return auto;
+        return PosAuto;
     }
-    }
+}
 
 
 
