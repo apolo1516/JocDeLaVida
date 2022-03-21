@@ -79,37 +79,48 @@ public class JuegoDeLaVida {
         public int posicioVida(int [][] array, int celula){
         int posVida=0;
         int num;
+        int cont = 5;
 
-
-            System.out.println("Selecciona una fila: ");
+            for (int i = 0 ; i < 5;i++){
+            System.out.println("Selecciona una fila: " + "(Max." + cont + ")");
             fila = e.nextInt();
             fila = (fila-1);
-            System.out.println("Selecciona una columna: ");
+            System.out.println("Selecciona una columna:"  + "(Max." + cont + ")");
             columna = e.nextInt();
             columna = (columna-1);
+            cont--;
             if (fila > array.length || columna > array.length){
                 System.out.println("Estas fora dels marges, selecciona una altre fila i columna dintre dels marges");
             }
             else if (fila <= array.length && columna <=array.length ) {
-                if (array[fila][columna]>0){
-                    System.out.println("Ja hi ha un numero en aquesta casella! Selecciona una altre!");
+                if (array[fila][columna] > 0) {
+                    System.out.println("Ja hi ha un numero en aquesta casella");
 
-                }else if (array[fila][columna]==0){
+                } else if (array[fila][columna] == 0) {
 
-                    System.out.println("Diposita un 1: " );
+                    System.out.println("Diposita un 1: ");
                     celula = e.nextInt();
-                    if (celula != 1){
+                    if (celula != 1) {
                         System.out.println("Aixo no es un 1");
                         System.out.println("Torna a seleccionar l'opció");
-                    }else {
+                    } else {
                         array[fila][columna] = celula;
                     }
                 }
+              }
             }
-
 
         return posVida;
         }
+    public int posicioVidaAuto(int [][] array, int celula){
+        int auto=0;
+
+
+
+        return auto;
     }
+    }
+
+
 
 
