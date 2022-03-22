@@ -31,7 +31,7 @@ public class JuegoDeLaVida {
         columna = e.nextInt();
         int array[][] = new int[fila][columna];
         System.out.println(" ");
-
+        int array2[][] = new int[fila][columna];
 
         while (!seguir) {
             System.out.println("_______________________________");
@@ -63,9 +63,6 @@ public class JuegoDeLaVida {
 
         }
     }
-
-
-
 
         public void imprimirArray (int [][] array) {
 
@@ -114,6 +111,7 @@ public class JuegoDeLaVida {
 
         return posVida;
         }
+
     public int posicioVidaAuto(int [][] array, int celula){
         int PosAuto=0;
         int grupos=0;
@@ -128,6 +126,39 @@ public class JuegoDeLaVida {
         }
 
         return PosAuto;
+    }
+
+    public void jugarVida (int [][] array, int [][] array2 ){
+
+    }
+
+    public int Veines (int [][]array,int fila,int columna){
+        int Veines=0;
+        if (array[fila+1][columna]==0){ //dreta
+            Veines++;
+        }
+        if (array[fila+1][columna+1]==0){ //dreta diagonal adalt
+            Veines++;
+        }
+        if (array[fila+1][columna-1]==0){ //dreta diagonal abaix
+            Veines++;
+        }
+        if (array[fila-1][columna]==0){ //esquerra
+            Veines++;
+        }
+        if (array[fila-1][columna-1]==0){ //esquerra diagonal abaix
+            Veines++;
+        }
+        if (array[fila-1][columna+1]==0){ //esquerra diagonal adalt
+            Veines++;
+        }
+        if (array[fila][columna-1]==0){ //abaix
+            Veines++;
+        }
+        if (array[fila][columna+1]==0){ //adalt
+            Veines++;
+        }
+        return Veines;
     }
 }
 
