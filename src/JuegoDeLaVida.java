@@ -6,6 +6,7 @@ public class JuegoDeLaVida {
     int fila;
     int celula;
 
+
     Scanner e = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -160,6 +161,10 @@ public class JuegoDeLaVida {
         }
         return Veines;
     }
+
+
+
+
 }
 
 
