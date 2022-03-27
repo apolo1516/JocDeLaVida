@@ -1,3 +1,5 @@
+
+import java.util.Random;
 import java.util.Scanner;
 
 public class JuegoDeLaVida {
@@ -5,9 +7,46 @@ public class JuegoDeLaVida {
     int columna;
     int fila;
     int celula;
-
-
+    int Gen;
+    int ContGen=0;
     Scanner e = new Scanner(System.in);
+    Random random = new Random();
+
+    {
+        System.out.println("Selecciona dimensió: ");
+    }
+
+    {
+        System.out.println(" ");
+    }
+
+    {
+        System.out.println("Quantes files vols?");
+    }
+
+    {
+        fila = e.nextInt();
+    }
+
+    {
+        System.out.println("Quantes columnes vols?");
+    }
+
+    {
+        columna = e.nextInt();
+    }
+
+    {
+        System.out.println("Quantes generacions vols?");
+    }
+
+    {
+        Gen = e.nextInt();
+    }
+
+
+    int array[][] = new int[fila][columna];
+
 
     public static void main(String[] args) {
         JuegoDeLaVida p = new JuegoDeLaVida();
@@ -16,23 +55,10 @@ public class JuegoDeLaVida {
 
 
     public void principal() {
-        int inArray = 0;
+
         int opcio = 0;
-        int imArray = 0;
-        int posVida=0;
-        int PosAuto=0;
         boolean seguir = false;
 
-
-        System.out.println("Selecciona dimensió: ");
-        System.out.println(" ");
-        System.out.println("Quantes files vols?");
-        fila = e.nextInt();
-        System.out.println("Quantes columnes vols?");
-        columna = e.nextInt();
-        int array[][] = new int[fila][columna];
-        System.out.println(" ");
-        int array2[][] = new int[fila][columna];
 
         while (!seguir) {
             System.out.println("_______________________________");
@@ -44,17 +70,33 @@ public class JuegoDeLaVida {
             opcio = e.nextInt();
             switch (opcio) {
                 case 1:
-                    posVida = posicioVida(array,celula);
+                    //No va bé l'evolució i no se perque//
+                    posicioVida(array, celula);
+                    imprimirArray(array);
+                    while (ContGen < Gen) {
+                        evo(fila, columna);
+                        System.out.println("  ");
+                        imprimirArray(array);
+                        System.out.println(" ");
+                        ContGen++;
+                    }
 
                     break;
                 case 2:
-                    PosAuto = posicioVidaAuto(array,celula);
+                    posicioVidaAuto(array, celula);
+                    imprimirArray(array);
+                    while (ContGen < Gen) {
+
+                        evo(fila, columna);
+                        System.out.println(" ");
+                        imprimirArray(array);
+                        System.out.println(" ");
+                        ContGen++;
+                    }
                     break;
                 case 3:
                     imprimirArray(array);
-
                     break;
-
                 case 4:
                     System.exit(0);
 
@@ -65,107 +107,134 @@ public class JuegoDeLaVida {
         }
     }
 
-        public void imprimirArray (int [][] array) {
 
-            for (int fila = 0; fila < array.length; fila++) {
-                for (int columna = 0; columna < array[fila].length; columna++) {
-                    System.out.print(" " + array[fila][columna] + " ");
-                }
-                System.out.println();
+    public void imprimirArray(int[][] array) {
+
+        for (int fila = 0; fila < array.length; fila++) {
+            for (int columna = 0; columna < array[fila].length; columna++) {
+                System.out.print(" " + array[fila][columna] + " ");
             }
-
+            System.out.println();
         }
 
-        public int posicioVida(int [][] array, int celula){
-        int posVida=0;
+    }
+
+    public void posicioVida(int[][] array, int celula) {
+        int posVida = 0;
         int num;
         int cont = 5;
 
-            for (int i = 0 ; i < 5;i++){
+        for (int i = 0; i < 5; i++) {
             System.out.println("Selecciona una fila: " + "(Max." + cont + ")");
             fila = e.nextInt();
-            fila = (fila-1);
-            System.out.println("Selecciona una columna:"  + "(Max." + cont + ")");
+            fila = (fila - 1);
+            System.out.println("Selecciona una columna:" + "(Max." + cont + ")");
             columna = e.nextInt();
-            columna = (columna-1);
+            columna = (columna - 1);
             cont--;
-            if (fila > array.length || columna > array.length){
+            if (fila > array.length || columna > array.length) {
                 System.out.println("Estas fora dels marges, selecciona una altre fila i columna dintre dels marges");
-            }
-            else if (fila <= array.length && columna <=array.length ) {
+            } else if (fila <= array.length && columna <= array.length) {
                 if (array[fila][columna] > 0) {
                     System.out.println("Ja hi ha un numero en aquesta casella");
 
                 } else if (array[fila][columna] == 0) {
-
-                    System.out.println("Diposita un 1: ");
-                    celula = e.nextInt();
-                    if (celula != 1) {
-                        System.out.println("Aixo no es un 1");
-                        System.out.println("Torna a seleccionar l'opció");
-                    } else {
-                        array[fila][columna] = celula;
-                    }
+                    celula = 1;
+                    array[fila][columna] = celula;
                 }
-              }
+            }
+        }
+
+}
+
+    public void posicioVidaAuto(int [][] array, int celula){
+        System.out.println("Introdueix el nombre de colonies que vols");
+        int colonies = e.nextInt();
+        int Tcolonia = 0;
+        for (int cont = 0; cont < colonies; cont++) {
+            int posfila = random.nextInt((array.length - 1) - 1) + 1;
+            int poscolumna = random.nextInt((array[0].length - 1) - 1) + 1;
+            do {
+                int poscol;
+                int posfi;
+                posfi = random.nextInt((posfila + 4) - (posfila - 4)) + (posfila - 4);
+
+                while((posfi < 1) || (posfi > array.length - 1)) {
+                    posfi = random.nextInt((posfila + 4) - (posfila - 4)) + (posfila - 4);
+                }
+
+                poscol = random.nextInt((poscolumna + 4) - (poscolumna - 4)) + (poscolumna - 4);
+                while((poscol < 1) || (poscol > array.length - 1)) {
+                    poscol = random.nextInt((poscolumna + 4) - (poscolumna - 4)) + (poscolumna - 4);
+                }
+
+                array[posfi][poscol] = 1;
+                Tcolonia++;
             }
 
-        return posVida;
+            while (Tcolonia < 5);
+            Tcolonia = 0;
         }
-
-    public int posicioVidaAuto(int [][] array, int celula){
-        int PosAuto=0;
-        int grupos=0;
-        System.out.println("Quants grups vols posar?");
-        grupos = e.nextInt();
-
-        for (int a=0; a < grupos;a++){
-            fila = (int)(Math.random()*array.length);
-            columna = (int)(Math.random()*array[fila].length);
-            celula = 1;
-            array[fila][columna] = celula;
-        }
-
-        return PosAuto;
-    }
-
-    public void jugarVida (int [][] array, int [][] array2 ){
 
     }
 
-    public int Veines (int [][]array,int fila,int columna){
+
+    public int Veines(int fila, int columna){
         int Veines=0;
-        if (array[fila+1][columna]==0){ //dreta
-            Veines++;
-        }
-        if (array[fila+1][columna+1]==0){ //dreta diagonal adalt
-            Veines++;
-        }
-        if (array[fila+1][columna-1]==0){ //dreta diagonal abaix
-            Veines++;
-        }
-        if (array[fila-1][columna]==0){ //esquerra
-            Veines++;
-        }
-        if (array[fila-1][columna-1]==0){ //esquerra diagonal abaix
-            Veines++;
-        }
-        if (array[fila-1][columna+1]==0){ //esquerra diagonal adalt
-            Veines++;
-        }
-        if (array[fila][columna-1]==0){ //abaix
-            Veines++;
-        }
-        if (array[fila][columna+1]==0){ //adalt
-            Veines++;
-        }
+        Veines += estadoCel(fila- 1, columna -1 );
+        Veines += estadoCel(fila, columna - 1);
+        Veines += estadoCel(fila + 1, columna - 1);
+        Veines += estadoCel(fila - 1, columna);
+        Veines += estadoCel(fila + 1, columna);
+        Veines += estadoCel(fila - 1, columna + 1);
+        Veines += estadoCel( fila + 1, columna + 1);
         return Veines;
     }
 
+    public int estadoCel(int x, int y){
+        if (x < 0 || x >= fila ){
+            return 0;
+        }
+        if (y < 0 || y >=columna){
+
+            return 0;
+        }
+        return array[x][y];
+    }
+
+    public void evo(int fila, int columna) {
+        int [][] array2 = new int[fila][columna];
+        for (int x = 0; x < fila ; x++) {
+            for (int y = 0; y < columna; y++) {
+                int vecinosVivos = Veines(x,y);
+                if (estadoCel(x,y) == 1){
+                    if (vecinosVivos < 2 ){
+                        array2[x][y] = 0;
+                    }else if (vecinosVivos == 2 || vecinosVivos == 3){
+                        array2[x][y]= 1;
+                    }else if (vecinosVivos > 3){
+                        array2[x][y] = 0;
+                    }
+                }else {
+                    if (vecinosVivos == 3){
+                        array2[x][y] = 1;
+                    }
+                }
+
+
+
+            }
+
+        }
+
+        this.array = array2;
+
+    }
 
 
 
 }
+
 
 
 
